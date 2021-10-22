@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,8 @@ namespace ProductReviewManagementLINQ
             //RetrieveBasedonProductIdAndRating(list);
             //CountingID(list);
             //ProductIdAndReview(list);
-            SkipTopFiveRecords(list);
+            //SkipTopFiveRecords(list);
+            CreateDataTable(list);
             Console.ReadLine();
         }
 
@@ -107,6 +109,28 @@ namespace ProductReviewManagementLINQ
             Console.WriteLine("\n----------Skip Top Five records in list");
             var res = (from product in products orderby product.Rating descending select product).Skip(5).ToList();
             IterateLoopList(res);
+        }
+
+        // UC:8- Creating data table insert records into it
+        public static void CreateDataTable(List<ProductReview> productList)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("productId");
+            dt.Columns.Add("userId");
+            dt.Columns.Add("rating");
+            dt.Columns.Add("review");
+            dt.Columns.Add("isLike", typeof(bool));
+
+            foreach (var data in productList)
+            {
+                dt.Rows.Add(data.ProductId, data.UserId, data.Rating, data.Review, data.IsLike);
+            }
+
+            // Displaying table
+            foreach (DataRow p in dt.Rows)
+            {
+                Console.WriteLine("{0} | {1} | {2} | {3} | {4} ", p["productId"], p["userId"], p["rating"], p["review"], p["isLike"]);
+            }
         }
     }
 }
