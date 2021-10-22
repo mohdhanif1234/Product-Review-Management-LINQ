@@ -39,7 +39,8 @@ namespace ProductReviewManagementLINQ
                 new ProductReview(){ProductId=7,UserId=1,Review="bad",Rating=10,IsLike=false},
                 new ProductReview(){ProductId=6,UserId=5,Review="good",Rating=17,IsLike=true},
             };
-            IterateLoopList(list);
+            //IterateLoopList(list);
+            RetrieveTop3Records(list);
             Console.ReadLine();
         }
 
@@ -50,6 +51,19 @@ namespace ProductReviewManagementLINQ
             {
                 Console.WriteLine("Product ID: " + product.ProductId + "\t User ID: " + product.UserId + "\t Review: " + product.Review + "\t Rating: " + product.Rating);
             }
+        }
+
+        // UC2-Retriving Top 3 Records from the List
+        public static void RetrieveTop3Records(List<ProductReview> list)
+        {
+            var result = (from product in list orderby product.Rating descending select product).ToList();
+            Console.WriteLine("=============================================");
+            Console.WriteLine("After Sorting");
+            IterateLoopList(result);
+            var top3Records = result.Take(3).ToList();
+            Console.WriteLine("=============================================");
+            Console.WriteLine("Top 3 Records");
+            IterateLoopList(top3Records);
         }
     }
 }
