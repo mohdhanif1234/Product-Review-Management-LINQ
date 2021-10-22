@@ -42,7 +42,8 @@ namespace ProductReviewManagementLINQ
             //IterateLoopList(list);
             //RetrieveTop3Records(list);
             //RetrieveBasedonProductIdAndRating(list);
-            CountingID(list);
+            //CountingID(list);
+            ProductIdAndReview(list);
             Console.ReadLine();
         }
 
@@ -85,6 +86,17 @@ namespace ProductReviewManagementLINQ
             {
                 Console.WriteLine("Product ID: " + element.ProductId + "\t Count: " + element.count);
                 Console.WriteLine("========================================================");
+            }
+        }
+
+        // UC:5- Retrieving only ProductID and Review from the Records
+        public static void ProductIdAndReview(List<ProductReview> list)
+        {
+            var p = list.Select(product => new { ProductId = product.ProductId, review = product.Review }).ToList();
+            foreach (var element in p)
+            {
+                Console.WriteLine("Product ID: " + element.ProductId + "\t Review: " + element.review);
+                Console.WriteLine("=====================================");
             }
         }
     }
