@@ -41,7 +41,8 @@ namespace ProductReviewManagementLINQ
             };
             //IterateLoopList(list);
             //RetrieveTop3Records(list);
-            RetrieveBasedonProductIdAndRating(list);
+            //RetrieveBasedonProductIdAndRating(list);
+            CountingID(list);
             Console.ReadLine();
         }
 
@@ -73,6 +74,18 @@ namespace ProductReviewManagementLINQ
             var data = (list.Where(a => a.Rating > 3 && (a.ProductId == 1 || a.ProductId == 4 || a.ProductId == 9))).ToList();
             Console.WriteLine("The desired result is :");
             IterateLoopList(data);
+        }
+
+        // UC:4- Counting each ID present in the List
+        public static void CountingID(List<ProductReview> list)
+        {
+            var data = (list.GroupBy(a => a.ProductId).Select(x => new { ProductId = x.Key, count = x.Count() }));
+            Console.WriteLine("Count of Each Product Id is: ");
+            foreach (var element in data)
+            {
+                Console.WriteLine("Product ID: " + element.ProductId + "\t Count: " + element.count);
+                Console.WriteLine("========================================================");
+            }
         }
     }
 }
