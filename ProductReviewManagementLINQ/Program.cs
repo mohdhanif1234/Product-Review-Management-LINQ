@@ -40,7 +40,8 @@ namespace ProductReviewManagementLINQ
                 new ProductReview(){ProductId=6,UserId=5,Review="good",Rating=17,IsLike=true},
             };
             //IterateLoopList(list);
-            RetrieveTop3Records(list);
+            //RetrieveTop3Records(list);
+            RetrieveBasedonProductIdAndRating(list);
             Console.ReadLine();
         }
 
@@ -64,6 +65,14 @@ namespace ProductReviewManagementLINQ
             Console.WriteLine("=============================================");
             Console.WriteLine("Top 3 Records");
             IterateLoopList(top3Records);
+        }
+
+        // UC:3-  Retrieving records whose rating is Greater than 3 and product Id is either 1 or 4 or 9
+        public static void RetrieveBasedonProductIdAndRating(List<ProductReview> list)
+        {
+            var data = (list.Where(a => a.Rating > 3 && (a.ProductId == 1 || a.ProductId == 4 || a.ProductId == 9))).ToList();
+            Console.WriteLine("The desired result is :");
+            IterateLoopList(data);
         }
     }
 }
