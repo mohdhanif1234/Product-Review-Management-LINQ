@@ -43,7 +43,8 @@ namespace ProductReviewManagementLINQ
             //RetrieveTop3Records(list);
             //RetrieveBasedonProductIdAndRating(list);
             //CountingID(list);
-            ProductIdAndReview(list);
+            //ProductIdAndReview(list);
+            SkipTopFiveRecords(list);
             Console.ReadLine();
         }
 
@@ -98,6 +99,14 @@ namespace ProductReviewManagementLINQ
                 Console.WriteLine("Product ID: " + element.ProductId + "\t Review: " + element.review);
                 Console.WriteLine("=====================================");
             }
+        }
+
+        // UC:6- Skipping top five records
+        public static void SkipTopFiveRecords(List<ProductReview> products)
+        {
+            Console.WriteLine("\n----------Skip Top Five records in list");
+            var res = (from product in products orderby product.Rating descending select product).Skip(5).ToList();
+            IterateLoopList(res);
         }
     }
 }
